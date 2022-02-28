@@ -255,6 +255,7 @@ public class MovieCollection
 
     Movie selectedMovie = results.get(pick - 1);
 
+
     displayMovieInfo(selectedMovie);
 
     System.out.println("\n ** Press Enter to Return to Main Menu **");
