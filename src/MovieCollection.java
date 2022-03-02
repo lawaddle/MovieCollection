@@ -395,66 +395,104 @@ public class MovieCollection
     scanner.nextLine();
 
   }
-  
+
+
+//  private void listHighestRated()
+//  {
+//    ArrayList<Movie> top50Rated = new ArrayList<>();
+//    top50Rated.add(movies.get(0));
+//    Movie weak = top50Rated.get(0);
+//    int weakDex = 0;
+//    for (int i = 1; i < movies.size(); i++) {
+//
+//      Movie current = movies.get(i);
+//      if (top50Rated.size() >= 50)
+//      {
+//        if (current.getUserRating() > weak.getUserRating())
+//        {
+//          top50Rated.remove(weakDex);
+//          top50Rated.add(current);
+//          boolean ahhh = false;
+//          for (int j = 0; j < top50Rated.size(); j++) {
+//            if (top50Rated.get(j).getUserRating() < current.getUserRating()) {
+//              ahhh = true;
+//
+//            }
+//          }
+//          if (!ahhh)
+//          {
+//            weak = current;
+//            weakDex = top50Rated.indexOf(weak);
+//          }
+//        }
+//      } else
+//      {
+//        top50Rated.add(current);
+//        boolean ahhh = false;
+//        for (int j = 0; j < top50Rated.size(); j++) {
+//          if (top50Rated.get(j).getUserRating() < current.getUserRating()) {
+//            ahhh = true;
+//
+//          }
+//        }
+//        if (!ahhh)
+//        {
+//          weak = current;
+//          weakDex = i;
+//        }
+//      }
+//    }
+//
+//    sortDoubleResults(top50Rated);
+//
+//    // now, display them all to the user
+//    for (int i = 0; i < top50Rated.size(); i++)
+//    {
+//      String title = top50Rated.get(i).getTitle();
+//      Double rating = top50Rated.get(i).getUserRating();
+//
+//      // this will print index 0 as choice 1 in the results list; better for user!
+//      int choiceNum = i + 1;
+//
+//      System.out.println("" + choiceNum + ". " + title + ": " + rating);
+//    }
+//
+//    System.out.println("Which movie would you like to learn more about?");
+//    System.out.print("Enter number: ");
+//
+//    int pick = scanner.nextInt();
+//    scanner.nextLine();
+//
+//    Movie selectedMovie = top50Rated.get(pick - 1);
+//
+//
+//    displayMovieInfo(selectedMovie);
+//
+//    System.out.println("\n ** Press Enter to Return to Main Menu **");
+//    scanner.nextLine();
+//
+//  }
+
   private void listHighestRated()
   {
+    ArrayList<Movie> rateMovies = movies;
+    sortRating(rateMovies);
     ArrayList<Movie> top50Rated = new ArrayList<>();
-    top50Rated.add(movies.get(0));
-    Movie weak = top50Rated.get(0);
-    int weakDex = 0;
-    for (int i = 1; i < movies.size(); i++) {
-
-      if (top50Rated.size() >= 50)
-      {
-        Movie current = movies.get(i);
-        if (current.getUserRating() > weak.getUserRating())
-        {
-          top50Rated.remove(weakDex);
-          movies.add(current);
-          top50Rated.add(current);
-          boolean ahhh = true;
-          for (int j = 0; j < top50Rated.size(); j++) {
-            if (top50Rated.get(j).getUserRating() > current.getUserRating()) {
-              ahhh = false;
-
-            }
-          }
-          if (!ahhh)
-          {
-            weak = current;
-            weakDex = i;
-          }
-        }
-      } else
-      {
-        Movie current = movies.get(i);
-        top50Rated.add(current);
-        boolean ahhh = true;
-        for (int j = 0; j < top50Rated.size(); j++) {
-          if (top50Rated.get(j).getUserRating() > current.getUserRating()) {
-            ahhh = false;
-
-          }
-        }
-        if (!ahhh)
-        {
-          weak = current;
-          weakDex = i;
-        }
-      }
+    for (int i = 0; i < 50; i++) {
+      top50Rated.add(rateMovies.get(i));
     }
 
-    sortDoubleResults(top50Rated);
 
-    // now, display them all to the user
+        // now, display them all to the user
     for (int i = 0; i < top50Rated.size(); i++)
     {
       String title = top50Rated.get(i).getTitle();
+      Double rating = top50Rated.get(i).getUserRating();
 
       // this will print index 0 as choice 1 in the results list; better for user!
       int choiceNum = i + 1;
 
-      System.out.println("" + choiceNum + ". " + title);
+      System.out.println("" + choiceNum + ". " + title + ": " + rating);
     }
 
     System.out.println("Which movie would you like to learn more about?");
@@ -473,14 +511,14 @@ public class MovieCollection
 
   }
 
-  private void sortDoubleResults(ArrayList<Movie> sortingList)
+  private void sortRating(ArrayList<Movie> sortingList)
   {
     for (int j = 1; j < sortingList.size(); j++)
     {
       Movie temp = sortingList.get(j);
 
       int possibleIndex = j;
-      while (possibleIndex > 0 && temp.getUserRating() < sortingList.get(possibleIndex - 1).getUserRating())
+      while (possibleIndex > 0 && temp.getUserRating() > sortingList.get(possibleIndex - 1).getUserRating())
       {
         sortingList.set(possibleIndex, sortingList.get(possibleIndex - 1));
         possibleIndex--;
@@ -491,7 +529,55 @@ public class MovieCollection
 
   private void listHighestRevenue()
   {
-    /* TASK 6: IMPLEMENT ME! */
+    ArrayList<Movie> rateMovies = movies;
+    sortRevenue(rateMovies);
+    ArrayList<Movie> top50Revenue = new ArrayList<>();
+    for (int i = 0; i < 50; i++) {
+      top50Revenue.add(rateMovies.get(i));
+    }
+
+
+    // now, display them all to the user
+    for (int i = 0; i < top50Revenue.size(); i++)
+    {
+      String title = top50Revenue.get(i).getTitle();
+      int revenue = top50Revenue.get(i).getRevenue();
+
+      // this will print index 0 as choice 1 in the results list; better for user!
+      int choiceNum = i + 1;
+
+      System.out.println("" + choiceNum + ". " + title + ": " + revenue);
+    }
+
+    System.out.println("Which movie would you like to learn more about?");
+    System.out.print("Enter number: ");
+
+    int pick = scanner.nextInt();
+    scanner.nextLine();
+
+    Movie selectedMovie = top50Revenue.get(pick - 1);
+
+
+    displayMovieInfo(selectedMovie);
+
+    System.out.println("\n ** Press Enter to Return to Main Menu **");
+    scanner.nextLine();
+  }
+
+  private void sortRevenue(ArrayList<Movie> sortingList)
+  {
+    for (int j = 1; j < sortingList.size(); j++)
+    {
+      Movie temp = sortingList.get(j);
+
+      int possibleIndex = j;
+      while (possibleIndex > 0 && temp.getRevenue() > sortingList.get(possibleIndex - 1).getRevenue())
+      {
+        sortingList.set(possibleIndex, sortingList.get(possibleIndex - 1));
+        possibleIndex--;
+      }
+      sortingList.set(possibleIndex, temp);
+    }
   }
 
   private void importMovieList(String fileName)
